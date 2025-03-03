@@ -5,7 +5,7 @@ import Tloja from "../assets/logo-tech.png"
 import Sloja from "../assets/logo-sec.png"
 import crystal from "../assets/crystal-eyes.png"
 import estrela from "../assets/estrela.png"
-import Navbarinuse from "./NavbarInUse";
+import Navbarinuse from "./Navbar";
 
 
 
