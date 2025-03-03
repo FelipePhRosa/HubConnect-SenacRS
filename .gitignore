@@ -11,7 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-src/components/
+src/components/CreateProduct.jsx
+src/components/NavBarInUse.jsx
+src/components/SettingsPage.jsx
+src/components/Hubbusca.jsx
 src/assets/
 
 # Editor directories and files
