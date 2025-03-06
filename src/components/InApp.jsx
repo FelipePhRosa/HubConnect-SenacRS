@@ -154,7 +154,7 @@ export default function InApp() {
                 </div>
 
 
-                <div className="flex flex-col gap-5 p-3 rounded-xl mt-2">
+                <div className="flex flex-col gap-5 p-3 rounded-xl mt-2 lg:grid lg:grid-cols-3">
                     {serviceList.map(({ image, title, description, price, rating }, index) => (
                         <div key={index} className="bg-white h-82 rounded-xl flex flex-col shadow-xl border border-gray-200">
                         
