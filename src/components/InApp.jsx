@@ -5,9 +5,13 @@ import Tloja from "../assets/logo-tech.png"
 import Sloja from "../assets/logo-sec.png"
 import crystal from "../assets/crystal-eyes.png"
 import estrela from "../assets/estrela.png"
-import Navbarinuse from "./Navbar";
 import robotica from "../assets/robotica.png"
-
+import devweb from "../assets/reactimage.jpg"
+import marketimg from "../assets/marketingimage.jpg"
+import designfreela from "../assets/designfreela.jpg"
+import codeimg from "../assets/codeclass.jpg"
+import photoimg from "../assets/photography.jpg"
+import Navbarinuse from "./Navbar";
 
 export default function InApp() {
     const lojas = [
@@ -16,7 +20,49 @@ export default function InApp() {
       ];
 
     const serviceList = [
-        { image: robotica, title: 'Montagem de Eletrônicos', description: 'Especialista em montagem, desmontagem e manutenção de eletrônicos e robótica, criando soluções inovadoras em hardware e automação. 🤖🚀', price: 600, rating: 4.5}
+        { image: robotica, 
+          title: 'Montagem de Eletrônicos',
+          description: 'Especialista em montagem, desmontagem e manutenção de eletrônicos e robótica, criando soluções inovadoras em hardware e automação. 🤖🚀',
+          price: 600, 
+          rating: 4.5
+        },
+        { 
+            image: devweb, 
+            title: 'Desenvolvimento Web', 
+            description: 'Criação de sites responsivos, modernos e otimizados para empresas de todos os tamanhos.', 
+            price: 1200, 
+            rating: 4.8 
+        },
+        { 
+            image: marketimg, 
+            title: 'Consultoria de Marketing Digital', 
+            description: 'Estratégias de SEO, anúncios pagos e marketing de conteúdo para aumentar sua visibilidade online.', 
+            price: 800, 
+            rating: 4.6 
+        },
+        { 
+            image: designfreela, 
+            title: 'Serviços de Design Gráfico', 
+            description: 'Criação de identidade visual, logotipos, banners e outros materiais gráficos para marcas.', 
+            price: 700, 
+            rating: 4.7 
+        },
+        { 
+            image: codeimg, 
+            title: 'Aulas de Programação', 
+            description: 'Aprenda a programar com aulas práticas de Python, JavaScript, C++ e muito mais.', 
+            price: 300, 
+            rating: 4.9 
+        },
+        { 
+            image: photoimg, 
+            title: 'Fotografia Profissional', 
+            description: 'Captura de momentos especiais em eventos, casamentos e ensaios fotográficos.', 
+            price: 1500, 
+            rating: 4.8 
+        }
+          
+          
     ]
       
     return (
@@ -108,11 +154,11 @@ export default function InApp() {
                 </div>
 
 
-                <div className="flex overflow-x-auto space-x-4 p-2 scrollbar-hide">
+                <div className="flex flex-col gap-5 p-3 rounded-xl mt-2">
                     {serviceList.map(({ image, title, description, price, rating }, index) => (
-                        <div key={index} className="bg-white max-w-xs h-64 rounded-xl flex flex-col shadow-xl border border-gray-200">
+                        <div key={index} className="bg-white h-82 rounded-xl flex flex-col shadow-xl border border-gray-200">
                         
-                        <div className="w-full h-40 rounded-xl overflow-hidden">
+                        <div className="w-full rounded-xl overflow-hidden">
                             <img className="w-full h-full object-cover transition-transform duration-300" src={image} alt={title} />
                         </div>
                         
@@ -125,32 +171,14 @@ export default function InApp() {
                                     <p>Média de R${price}</p>
                                     <p className="text-yellow-600">⭐ {rating}</p>
                                 </div>
-                                <button>
-                                    
-                                </button>
+                                <div className="flex justify-center items-center">
+                                    <button className="bg-[#005eff] w-full h-8 text-white rounded-xl hover:bg-[#004fcc] duration-300 mt-2 font-[Poppins] cursor-pointer">
+                                        Saiba Mais
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
-                </div>
-
-                <div className="flex justify-start items-center mt-3">
-                    <div className="bg-white border border-gray-400 shadow-lg w-[350px] h-22 rounded-2xl flex items-center hover:scale-105 hover:border duration-300">
-                            <div className="w-10 h-14 ml-4 mt-4">
-                                <img src={crystal} alt="" />
-                            </div>
-                        <div className="flex flex-col ml-3">
-                            <h1 className="font-semibold text-base mt-1 font-[Sora]">Crystal Eyes</h1>
-                            <h3 className="font-light text-sm font-[Sora]">Desenvolvimento Web</h3>
-                            <div className="flex flex-row items-center mb-1">
-                                <img className="w-5 h-5 mr-2" src={estrela} alt="" />
-                            <p className="font-medium text-lg">4,5</p>
-                            <p className="font-medium text-base ml-16">~R$470</p>
-                            </div>
-                        </div>
-                        <button className="ml-auto mr-3 w-10 h-10 shadow-xl bg-[#005eff] rounded-3xl flex justify-center items-center">
-                                <ChevronRight className="text-white hover:text-gray-400 duration-300"/>
-                        </button>
-                    </div>
                 </div>
                 <div className="pb-24"></div>
             </div>        
