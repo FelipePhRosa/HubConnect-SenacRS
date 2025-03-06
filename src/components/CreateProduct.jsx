@@ -12,14 +12,13 @@ export default function Createproduct() {
     useEffect(() => {
       const type = searchParams.get('type');
       if (type === 'service') {
-        setType('service'); // Se for 'service', ajusta o estado para criar serviço
+        setType('service');
       } else {
-        setType('product'); // Caso contrário, cria um produto
+        setType('product');
       }
     }, [searchParams]);
-    
-    // Lista de categorias para fácil manutenção
-    const categories = ['Tech', 'Culinária', 'Esportes', 'Acessórios', 'Roupas', 'Utilitarios'];
+     
+    const categories = ['Tech', 'Culinária', 'Esportes', 'Acessórios', 'Roupas', 'Utilitarios', 'Saúde', 'Beleza', 'Casa', 'Jardinagem', 'Automotivo', 'Outros'];
     
     // Objeto para rastrear o estado de cada categoria individualmente
     const [selectedCategories, setSelectedCategories] = useState({});
