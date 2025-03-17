@@ -1,5 +1,5 @@
 import { Search, Plus, Settings, Menu, CircleUser, Heart, Clock, Zap, History, TrendingUp, Cpu, CircleArrowRight, BookText, ChevronRight, House, ShoppingCart } from "lucide-react";
-
+import { useState, useEffect } from "react";
 import Cart from "../assets/cart.png"
 import Tloja from "../assets/logo-tech.png"
 import Sloja from "../assets/logo-sec.png"
@@ -12,12 +12,26 @@ import designfreela from "../assets/designfreela.jpg"
 import codeimg from "../assets/codeclass.jpg"
 import photoimg from "../assets/photography.jpg"
 import Navbarinuse from "./Navbar";
+import StoreFeed from "./StoreFeed";
 
 export default function InApp() {
-    const lojas = [
-        { logo: Tloja, name: 'TechSec', categories: ['Tech', 'Security'] },
-        { logo: Sloja, name: 'DedSec', categories: ['Tech', 'Security'] },        
-      ];
+    const [stores, setStores] = useState([]);
+    
+      useEffect(() => {
+        const fetchStores = async () => {
+          try {
+            const response = await fetch("http://localhost:5173/stores");
+            if (!response.ok) throw new Error("Erro ao carregar lojas.");
+    
+            const data = await response.json();
+            setStores(data); // Salva as lojas no state
+          } catch (error) {
+            console.error("Erro ao buscar lojas:", error);
+          }
+        };
+    
+        fetchStores();
+      }, []);
 
     const serviceList = [
         { image: robotica, 
@@ -132,16 +146,28 @@ export default function InApp() {
                     </button>
                 </div>
 
-                <div className="flex items-center mt-2 gap-4">
-                    {lojas.map(({ logo, name, categories }, index) => (
-                        <div key={index} className="bg-white w-40 h-56 rounded-xl flex flex-col items-center justify-center shadow-xl border border-gray-200 p-2">
-                        <img className="w-20 mb-2" src={logo} alt={name} />
-                        <p className="text-center text-sm font-semibold">{name}</p>
-                        <p className="text-center text-xs text-gray-500">
-                            {categories.join(' • ')}
-                        </p>
-                        </div>
-                    ))}
+                <div className="flex items-center mt-2">
+                    <div className="w-full overflow-x-auto pb-4 flex gap-6 no-scrollbar">
+                        {stores.length > 0 ? (
+                        stores.map((store) => (
+                            <div 
+                            key={store.id} 
+                            className="bg-white w-40 h-56 rounded-xl flex-shrink-0 flex flex-col items-center justify-center shadow-lg border border-gray-200 p-2"
+                            >
+                            <img
+                                src={store.urlimage}
+                                alt={store.name}
+                                className="w-30 h-24 object-contain rounded-4xl mb-2 "
+                            />
+                            <h3 className="text-center text-sm font-semibold">{store.name}</h3>
+                            <p className="text-center text-xs text-gray-500">{store.description}</p>
+                            <p>Categoria</p>
+                            </div>
+                        ))
+                        ) : (
+                        <p className="text-center w-full text-gray-500">Nenhuma loja cadastrada.</p>
+                        )}
+                    </div>
                 </div>
 
                 <div className="flex items-center mt-5">
