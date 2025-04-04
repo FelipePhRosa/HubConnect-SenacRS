@@ -5,25 +5,103 @@ import { Pencil, Cpu, ToggleLeft, ToggleRight, ChevronRight, CircleUser, Text } 
 import Navbarinuse from './Navbar';
 
 export default function Createproduct() {
-    const [searchParams] = useSearchParams();
-    
-    const [type, setType] = useState('product');
+    const [searchParams, setSearchParams] = useSearchParams();
 
+    const typeFromURL = searchParams.get('type') || 'product';
+    const [type, setType] = useState(typeFromURL);
+    
     useEffect(() => {
-      const type = searchParams.get('type');
-      if (type === 'service') {
-        setType('service');
+      setType(typeFromURL);
+    }, [typeFromURL]);
+    
+    const toggleType = () => {
+      const newType = type === 'product' ? 'service' : 'product';
+      setType(newType);
+      setSearchParams({ type: newType }); // Atualiza a URL
+    };
+
+    const [productData, setProductData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        categories: [],
+        urlimage: ''
+    })
+
+    const [serviceData, setServiceData] = useState({
+      name: '',
+      description: '',
+      price: '',
+      categories: [],
+      urlimage: ''
+  })
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setProductData({...productData, [name]: value});
+    };
+
+    const handleDiscard = (e) => {
+      setProductData({
+        name: '',
+        description: '',
+        price: '',
+        categories: [],
+        urlimage: ''
+      })
+    }
+
+    const handleDiscardS = (e) => {
+      setServiceData({
+        name: '',
+        description: '',
+        price: '',
+        categories: [],
+        urlimage: ''
+      })
+    }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const response = await fetch('http://localhost:5173/product' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productData),
+      });
+
+      if (response.ok) {
+        alert(`Produto ${productData.name} criado com sucesso!`);
       } else {
-        setType('product');
+        alert('Erro ao criar o produto.');
+        console.log(response);
       }
-    }, [searchParams]);
+    };
+
+    const handleSubmitS = async (e) => {
+      e.preventDefault();
+      const response = await fetch('http://localhost:5173/service' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(serviceData),
+      });
+
+      if (response.ok) {
+        alert(`Serviço ${serviceData.name} criado com sucesso!`);
+      } else {
+        alert('Erro ao criar o Serviço.');
+        console.log(response);
+      }
+    };
      
     const categories = ['Tech', 'Culinária', 'Esportes', 'Acessórios', 'Roupas', 'Utilitarios', 'Saúde', 'Beleza', 'Casa', 'Jardinagem', 'Automotivo', 'Outros'];
     
     // Objeto para rastrear o estado de cada categoria individualmente
     const [selectedCategories, setSelectedCategories] = useState({});
 
-    const [price, setPrice] = useState('');
 
     // Função que pega o toggle, fala que vai mexer é na category, seleciona o Set pra mudar o estado e selecionar a categoria
     // prev pega a ultima do array, ...prev é pra recarregar todas as outras, pra nao apagar quando selecionar uma
@@ -35,17 +113,11 @@ export default function Createproduct() {
       }));
     }
 
-
-
-    const toggleType = () => {
-      setType(type === 'product' ? 'service' : 'product');
-    }
-
     const handlePriceChange = (e) => {
-        const value = e.target.value;
-        if(!isNaN(value) || value === ''){
-            setPrice(value);
-        }
+      const value = e.target.value;
+      if(!isNaN(value) || value === ''){
+          setPrice(value);
+      }
     }
 
     const formatCurrency = (value) => {
@@ -54,12 +126,6 @@ export default function Createproduct() {
             currency: "BRL",
         }).format(value);
     }
-
-  const [description, setDescription] = useState('');
-
-  const handleChange = (e) => {
-    setDescription(e.target.value);
-  };
 
   return (
     <>
@@ -111,7 +177,7 @@ export default function Createproduct() {
             <div className="flex justify-center gap-3 lg:ml-45 bg-white border border-gray-100 p-4 rounded-2xl w-full lg:w-170 shadow-xl mb-2">
               <Text className="text-[#3482ffd3]" />
               <textarea
-                value={description}
+                value={productData.description}
                 onChange={handleChange}
                 placeholder={
                   type === 'product'
@@ -125,7 +191,7 @@ export default function Createproduct() {
             <div className='flex items-center gap-3 lg:ml-45 bg-white border border-gray-100 p-3 rounded-xl w-full lg:w-170 shadow-xl mb-2'>
                 <span className='text-lg font-[Sora] text-[#3482ffd3]'>{formatCurrency(price)}</span>
                 <input type="text"
-                 value={price}
+                 value={productData.price}
                  onChange={handlePriceChange}
                  placeholder='Insira um Valor...'
                  className='w-full p-2 rounded-md focus:outline-none text-lg'
@@ -147,10 +213,12 @@ export default function Createproduct() {
             </div>
 
             <div className='w-full h-auto flex items-center justify-center gap-2 mt-5'>
-              <button className='w-76 h-16 bg-gray-200 border border-gray-400 shadow-xl rounded-xl text-red-500 font-[Sora] font-medium text-lg hover:scale-105 duration-300 transition-transform cursor-pointer'>
+              <button className='w-76 h-16 bg-gray-200 border border-gray-400 shadow-xl rounded-xl text-red-500 font-[Sora] font-medium text-lg hover:scale-105 duration-300 transition-transform cursor-pointer'
+              onClick={type === 'product' ? handleDiscard : handleDiscardS} >
                 Descartar 
               </button>
-              <button className='w-84 h-20 bg-[#3482ffd3] shadow-xl rounded-xl text-lg text-white font-[Sora] font-medium hover:scale-105 duration-300 transition-transform cursor-pointer'>
+              <button className='w-84 h-20 bg-[#3482ffd3] shadow-xl rounded-xl text-lg text-white font-[Sora] font-medium hover:scale-105 duration-300 transition-transform cursor-pointer' 
+              onClick={type === 'product' ? handleSubmit : handleSubmitS} >
                 {type === 'product' ? 'Anunciar Produto' : 'Anunciar Serviço'}
               </button>
             </div>

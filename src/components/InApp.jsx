@@ -83,12 +83,12 @@ export default function InApp() {
         <>
         <div className="min-h-screen pb-16">
             <div className="w-full flex justify-between items-center p-3">
-                <h1 className="text-[#3482ff] text-2xl font-bold">HubConnect</h1>
+                <h1 className="text-green-600 text-3xl font-bold pl-3">LocalTED</h1>
                 <div className="w-[38px] h-[36px] rounded-xl hover:bg-gray-200 duration-300 flex items-center justify-center">
                     <Settings className="w-[27px] h-[35px]"/>
                 </div>
             </div>
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-12">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12">
                 <div className="max-w-7xl mx-auto px-4">
                     <h2 className="text-3xl font-bold mb-4">Encontre os melhores serviços e produtos</h2>
                     <p className="text-blue-100 mb-6">Conectando você a milhares de profissionais e empresas de confiança</p>
@@ -198,7 +198,7 @@ export default function InApp() {
                                     <p className="text-yellow-600">⭐ {rating}</p>
                                 </div>
                                 <div className="flex justify-center items-center">
-                                    <button className="bg-[#005eff] w-full h-8 text-white rounded-xl hover:bg-[#004fcc] duration-300 mt-2 font-[Poppins] cursor-pointer">
+                                    <button className="bg-green-500 w-full h-8 text-white rounded-xl hover:bg-[#004fcc] duration-300 mt-2 font-[Poppins] cursor-pointer">
                                         Saiba Mais
                                     </button>
                                 </div>

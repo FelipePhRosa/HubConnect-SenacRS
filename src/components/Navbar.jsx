@@ -17,7 +17,7 @@ export default function Navbarinuse() {
                     <div className="relative mt-3 lg:mt-15">
                     <div className="absolute top-[-38px] left-[50%] lg:top-[-95px] -translate-x-1/2 z-20">
                     <button 
-                        className="bg-blue-600 p-3 lg:p-5 rounded-3xl hover:scale-110 duration-300 transition-transform"
+                        className="bg-green-500 p-3 lg:p-5 rounded-3xl hover:scale-110 duration-300 transition-transform"
                         onClick={handleToggle}
                     >
                         <Plus className={`text-white transition-transform duration-300 ${isActive ? "rotate-45" : "rotate-0"}`} />
